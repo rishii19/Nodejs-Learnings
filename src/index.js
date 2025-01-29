@@ -1,10 +1,10 @@
 // require("dotenv").config({ path: "./env" });
 import mongoose from "mongoose";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 // import { DB_NAME } from "./constant";
 import connectDB from "./db/index.js";
 
-dotenv.config({ 
+dotenv.config({
   path: "./env",
 });
 
@@ -35,4 +35,12 @@ dotenv.config({
 // })();
 
 //method-2 write all the db connection funtionality into the other file inside the db folder and import that here and call it.
-connectDB();
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`sever is running on the port: ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MOGODB Connection failed!!", err);
+  }); 
